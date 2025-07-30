@@ -19,6 +19,7 @@ var currentCmd = &cobra.Command{
 		var err error
 		response, err = CurrentWeather(location)
 		if err != nil {
+			fmt.Fprintf(os.Stderr, "Error fetching weather data: %v\n", err)
 			os.Exit(1)
 		}
 		fmt.Println(response)

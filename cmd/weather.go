@@ -43,6 +43,9 @@ func CurrentWeather(location string) (Response, error) {
 		return Response{}, fmt.Errorf("Error fetching data: %w", err)
 	}
 	defer res.Body.Close()
+	if res.StatusCode == http.StatusBadRequest {
+		return Response{}, fmt.Errorf("Invalid Location - %s", location)
+	}
 	resData, err := io.ReadAll(res.Body)
 	if err != nil {
 		return Response{}, fmt.Errorf("Error reading response body: %w", err)
